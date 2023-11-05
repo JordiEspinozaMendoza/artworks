@@ -1,7 +1,6 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from collection.models import Artist
 import os
-import environ
 import sys
 import csv
 

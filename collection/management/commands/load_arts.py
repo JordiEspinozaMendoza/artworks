@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 from collection.models import Artwork, Artist, Style, Period, Genre
 import os
-import environ
 import sys
 import csv
 

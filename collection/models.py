@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Artist(models.Model):
@@ -49,3 +50,21 @@ class Artwork(models.Model):
 
     def get_absolute_url(self):
         return f"/artworks/{self.id}/"
+
+
+class ArtworksPackage(models.Model):
+    name = models.CharField(max_length=40, unique=True)
+    quantity = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class PackageOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    package = models.ForeignKey(ArtworksPackage, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    artworks = models.ManyToManyField(Artwork, through="ArtworksOrder")
+
+    def __str__(self):
+        return f"{self.user.username} - {self.package.name}"

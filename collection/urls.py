@@ -6,4 +6,5 @@ urlpatterns = [
     path("accounts/profile/", auth.index, name="index"),
     path("accounts/register/", auth.register, name="register"),
     path("artworks/", artworks.getArtworksList, name="artworks"),
+    path("artworks/<int:artwork_id>/", artworks.getArtwork, name="artwork"),
 ]

@@ -9,6 +9,9 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f"/artists/{self.slug}/"
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=40, unique=True)
@@ -43,3 +46,6 @@ class Artwork(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return f"/artworks/{self.id}/"

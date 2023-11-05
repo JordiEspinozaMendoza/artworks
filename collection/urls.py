@@ -1,8 +1,9 @@
 from django.urls import path
-from . import views
+from .views import artworks, auth
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("accounts/profile/", views.index, name="index"),
-    path("accounts/register/", views.register, name="register")
+    path("", auth.index, name="index"),
+    path("accounts/profile/", auth.index, name="index"),
+    path("accounts/register/", auth.register, name="register"),
+    path("artworks/", artworks.getArtworksList, name="artworks"),
 ]

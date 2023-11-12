@@ -55,6 +55,8 @@ class Artwork(models.Model):
 class ArtworksPackage(models.Model):
     name = models.CharField(max_length=40, unique=True)
     quantity = models.IntegerField()
+    price = models.IntegerField(default=0)
+    defaultArtwork = models.ForeignKey(Artwork, null=True, on_delete=models.RESTRICT)
 
     def __str__(self):
         return self.name
@@ -64,7 +66,7 @@ class PackageOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     package = models.ForeignKey(ArtworksPackage, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    artworks = models.ManyToManyField(Artwork, through="ArtworksOrder")
+    artworks = models.ManyToManyField(Artwork)
 
     def __str__(self):
         return f"{self.user.username} - {self.package.name}"

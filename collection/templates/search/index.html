@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul>
+{% for art in Artworks %}
+  <li>
+  <a href="?title={{art.title}}">
+    {{art.title}}
+    ({{art.count}})
+  </a>
+  </li>
+{% endfor %}
+</ul>
+{% endblock content %}

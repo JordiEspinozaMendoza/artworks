@@ -10,11 +10,9 @@
     >
       <div class="bg-white rounded shadow-lg">
         <img
-          class="w-full"
+          class="object-cover h-64 w-full"
           src="{{ package.defaultArtwork.image_url }}"
           alt="{{ package.defaultArtwork.title }}"
-          height="200"
-          width="200"
         />
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2">{{ package.name }}</div>
@@ -43,6 +41,7 @@
     {% endfor %}
   </div>
 </div>
+
 <div class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden" id="modal">
   <div
     class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0"
@@ -108,5 +107,5 @@
   </div>
   {% csrf_token %}
   <script src="{% static 'store.js' %}"></script>
-  {% endblock content %}
 </div>
+{% endblock content %}

@@ -67,8 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const artworkImage = document.createElement("img");
           artworkImage.src = artwork.image;
           artworkImage.alt = artwork.title;
-          artworkImage.height = 200;
-          artworkImage.width = 200;
+          artworkImage.classList = "h-64 w-64 object-cover";
 
           const artworkTitle = document.createElement("p");
           artworkTitle.innerText = artwork.title;

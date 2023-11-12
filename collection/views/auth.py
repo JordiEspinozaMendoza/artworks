@@ -20,7 +20,3 @@ def register(request):
         f = UserCreationForm()
 
     return render(request, "registration/registration_form.html", {"form": f})
-
-
-def index(request):
-    return render(request, "collection/index.html", {"data": "Not"})

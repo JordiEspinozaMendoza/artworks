@@ -7,12 +7,12 @@
     <div class="flex flex-wrap -mx-4">
       {% for artwork, quantity in artworks.items %}
         <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
-          <div class="bg-white rounded shadow-lg">
+          <div class="bg-blue-900 text-white  rounded shadow-lg">
             <a href="{% url 'artwork' artwork.2 %}"><img src="{{ artwork.1 }}" alt="{{ artwork.2 }}" class="object-cover h-64 w-full" /></a>
-            <div class="px-6 py-4 text-slate-950">
+            <div class="px-6 py-4 text-white">
               <div class="font-bold text-xl mb-2">{{ artwork.0 }}</div>
               <div class="text-sm">Quantity: {{ quantity }}</div>
-              <button class="bg-slate-950 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded mt-2" onclick="addToFavorites('{{ artwork.2 }}')">Add to favorites</button>
+              <button class="bg-slate-950 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded mt-2" onclick="addToFavorites('{{ artwork.2 }}')" data-artwork="{{ artwork.2 }}">Add to favorites</button>
             </div>
           </div>
         </div>

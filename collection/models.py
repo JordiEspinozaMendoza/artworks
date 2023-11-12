@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Artist(models.Model):
-    slug = models.SlugField(max_length=80, unique=True)
-    name = models.CharField(max_length=80)
-    born_date = models.CharField(max_length=40)
+    slug = models.SlugField(unique=True)
+    name = models.CharField()
+    born_date = models.CharField()
 
     def __str__(self):
         return self.name
@@ -15,21 +15,21 @@ class Artist(models.Model):
 
 
 class Genre(models.Model):
-    name = models.CharField(max_length=40, unique=True)
+    name = models.CharField(unique=True)
 
     def __str__(self):
         return self.name
 
 
 class Style(models.Model):
-    name = models.CharField(max_length=40, unique=True)
+    name = models.CharField(unique=True)
 
     def __str__(self):
         return self.name
 
 
 class Period(models.Model):
-    name = models.CharField(max_length=40, unique=True)
+    name = models.CharField(unique=True)
 
     def __str__(self):
         return self.name
@@ -37,9 +37,9 @@ class Period(models.Model):
 
 class Artwork(models.Model):
     author = models.ForeignKey(Artist, on_delete=models.RESTRICT)
-    path = models.CharField(max_length=200)
-    title = models.CharField(max_length=200)
-    date = models.CharField(max_length=40, null=True)
+    path = models.CharField()
+    title = models.CharField()
+    date = models.CharField(null=True)
     style = models.ForeignKey(Style, null=True, on_delete=models.RESTRICT)
     period = models.ForeignKey(Period, null=True, on_delete=models.RESTRICT)
     genre = models.ForeignKey(Genre, null=True, on_delete=models.RESTRICT)
@@ -53,7 +53,7 @@ class Artwork(models.Model):
 
 
 class ArtworksPackage(models.Model):
-    name = models.CharField(max_length=40, unique=True)
+    name = models.CharField(unique=True)
     quantity = models.IntegerField()
     price = models.IntegerField(default=0)
     defaultArtwork = models.ForeignKey(Artwork, null=True, on_delete=models.RESTRICT)
@@ -67,7 +67,7 @@ class PackageOrder(models.Model):
     package = models.ForeignKey(ArtworksPackage, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     artworks = models.ManyToManyField(Artwork)
-    payment_intent = models.CharField(max_length=200, null=True)
+    payment_intent = models.CharField(null=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.package.name}"

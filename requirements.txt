@@ -7,6 +7,8 @@ colorama==0.4.6
 cssbeautifier==1.14.11
 Django==4.2.6
 django-environ==0.11.2
+django-filter==23.3
+django-filters-facet @ git+https://github.com/caktus/django-filters-facet.git@775e63f1bb87b4f374f1eea62168cf74dbffb2d9
 django-widget-tweaks==1.5.0
 EditorConfig==0.12.3
 Faker==20.0.0
@@ -30,4 +32,5 @@ stripe==7.4.0
 tomli==2.0.1
 tqdm==4.66.1
 typing_extensions==4.8.0
+tzdata==2023.3
 urllib3==2.0.7

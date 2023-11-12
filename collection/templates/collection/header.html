@@ -18,6 +18,7 @@
 
           {% if user.is_authenticated %}
             <li><a href={% url 'profile' %} class="text-white">Profile</a></li>
+            <li><a href={% url 'search' %} class="text-white">Search</a></li>
             <li><a href={% url 'favorites' %} class="text-white">Favorites</a></li>
             <li><a href={% url 'logout' %} class="text-white">Logout</a></li>
           {% else %}

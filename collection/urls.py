@@ -13,6 +13,7 @@ urlpatterns = [
         "api/store/create-payment/", store.getStripeClientSecret, name="client_secret"
     ),
     path("api/store/package", store.saveArtPackageToUser, name="save_package"),
+    path("search/", artworks.getSearch, name="search"),
     path("api/profile/favorite/add", profile.addFavorite, name="add_favorite"),
     path("api/profile/favorite/remove", profile.removeFavorite, name="remove_favorite"),
 ]

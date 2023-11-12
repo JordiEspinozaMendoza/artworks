@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const clientSecret = await clientSecretRequest.json();
 
+      // user_name and user_email are global variables defined in the template file
       const { paymentIntent, error } = await stripe.confirmCardPayment(
         clientSecret.client_secret,
         {
@@ -75,6 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         cardErrors.classList.remove("hidden");
         cardErrors.innerText = error.message;
+
+        cardElement.classList.remove("hidden");
 
         loader.classList.add("hidden");
         packageSelectedInfo.classList.remove("hidden");

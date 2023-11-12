@@ -4,6 +4,13 @@ from collections import defaultdict
 
 
 def getMyArtworks(request):
+    if request.user.is_anonymous:
+        return render(
+            request,
+            "404.html",
+            {"message": "You are not logged in. Please login to view your artworks."},
+        )
+
     artworksPackage = PackageOrder.objects.filter(user=request.user)
 
     artworks = defaultdict(int)

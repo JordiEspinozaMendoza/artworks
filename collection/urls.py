@@ -10,6 +10,7 @@ urlpatterns = [
     path("artworks/<int:artwork_id>/", artworks.getArtwork, name="artwork"),
     path("store/", store.getArtworksPackages, name="store"),
     path("artists/",artists.getArtistsList,name="artist"),
+    path("artists/<int:artist_id>/",artists.getArtist,name="artbyauthor"),
     path("api/store/create-payment/", store.getStripeClientSecret, name="client_secret"),
     path("api/store/package", store.saveArtPackageToUser, name="save_package"),
     path("search/", artworks.ArtWorkSearchView.as_view(),name="art-list"),

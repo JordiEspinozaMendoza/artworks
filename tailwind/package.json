@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "npx tailwindcss -i input.css -o ../collection/static/output.css --watch",
-    "build:css:prod": "npx tailwindcss -i input.css -o ../collection/static/output.css --minify"
+    "build:css:prod": "npx tailwindcss -i input.css -o ../collection/static/output.css"
   },
   "repository": {
     "type": "git",

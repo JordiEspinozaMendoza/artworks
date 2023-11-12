@@ -15,6 +15,7 @@
         <ul class="flex space-x-4">
           <li><a href={% url 'home' %} class="text-white">Home</a></li>
           <li><a href={% url 'store' %} class="text-white">Store</a></li>
+          <li><a href={% url 'artist' %} class="text-white">Artists</a></li>
 
           {% if user.is_authenticated %}
             <li><a href={% url 'profile' %} class="text-white">Profile</a></li>

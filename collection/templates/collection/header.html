@@ -31,9 +31,12 @@
           <input
             type="text"
             placeholder="Search"
+            name="search"
             class="bg-blue-900 text-white px-4 py-2 rounded-md focus:outline-none focus:ring"
           />
-          <button class="absolute top-0 right-0 mt-2 mr-3">
+          <button class="absolute top-0 right-0 mt-2 mr-3"
+            onclick="search()"
+          >
             <svg
               class="h-6 w-6 text-white"
               fill="none"
@@ -53,3 +56,10 @@
       </div>
     </div>
   </nav>
+
+  <script>
+    const search = () => {
+      const search = document.querySelector('input[name="search"]').value;
+      window.location.href = `/search/?title=${search}`;
+    }
+  </script>

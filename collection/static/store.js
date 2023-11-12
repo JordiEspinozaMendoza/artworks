@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   confirmPaymentButton.addEventListener("click", async () => {
-    let csrfToken = getCookie("csrftoken");
+    const csrfToken = getCookie("csrftoken");
 
     const previousText = confirmPaymentButton.innerText;
 
@@ -35,11 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const loader = document.getElementById("loader");
       const purchaseDetails = document.getElementById("purchase-details");
+      const cardErrors = document.getElementById("card-errors");
+      const cardElement = document.getElementById("card-element");
 
       loader.classList.remove("hidden");
       packageSelectedInfo.classList.add("hidden");
+      cardErrors.classList.add("hidden");
+      cardElement.classList.add("hidden");
 
-      const response = await fetch("/api/store/package", {
+      const clientSecretRequest = await fetch("/api/store/create-payment/", {
         method: "POST",
         body: JSON.stringify({
           package_id: confirmPaymentButton.dataset.id,
@@ -50,47 +54,84 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       });
 
-      const data = await response.json();
+      const clientSecret = await clientSecretRequest.json();
 
-      loader.classList.add("hidden");
+      const { paymentIntent, error } = await stripe.confirmCardPayment(
+        clientSecret.client_secret,
+        {
+          payment_method: {
+            card,
+            billing_details: {
+              name: user_name,
+              email: user_email,
+            },
+          },
+        }
+      );
 
-      if (data.status === "success") {
+      if (error) {
         confirmPaymentButton.innerText = previousText;
         confirmPaymentButton.disabled = false;
 
-        const artworks = JSON.parse(data.artworks);
+        cardErrors.classList.remove("hidden");
+        cardErrors.innerText = error.message;
 
-        artworks.forEach((artwork) => {
-          const artworkElement = document.createElement("div");
-          artworkElement.classList.add("artwork");
-
-          const artworkImage = document.createElement("img");
-          artworkImage.src = artwork.image;
-          artworkImage.alt = artwork.title;
-          artworkImage.classList = "h-64 w-64 object-cover";
-
-          const artworkTitle = document.createElement("p");
-          artworkTitle.innerText = artwork.title;
-
-          artworkElement.appendChild(artworkImage);
-          artworkElement.appendChild(artworkTitle);
-
-          purchaseDetails
-            .querySelector("#artworks")
-            .appendChild(artworkElement);
+        loader.classList.add("hidden");
+        packageSelectedInfo.classList.remove("hidden");
+      } else {
+        const response = await fetch("/api/store/package", {
+          method: "POST",
+          body: JSON.stringify({
+            package_id: confirmPaymentButton.dataset.id,
+            payment_intent: paymentIntent,
+          }),
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": csrfToken,
+          },
         });
 
-        purchaseDetails.classList.remove("hidden");
-      } else if (data.status === "error") {
-        packageSelectedInfo.classList.remove("hidden");
+        const data = await response.json();
 
-        confirmPaymentButton.innerText = previousText;
-        confirmPaymentButton.disabled = false;
+        loader.classList.add("hidden");
 
-        const purchaseError = document.getElementById("purchase-error");
-        purchaseError.classList.remove("hidden");
+        if (data.status === "success") {
+          confirmPaymentButton.classList.add("hidden");
 
-        purchaseError.innerText = data.message;
+          const artworks = JSON.parse(data.artworks);
+
+          artworks.forEach((artwork) => {
+            const artworkElement = document.createElement("div");
+            artworkElement.classList.add("artwork");
+
+            const artworkImage = document.createElement("img");
+            artworkImage.src = artwork.image;
+            artworkImage.alt = artwork.title;
+            artworkImage.classList = "h-64 w-64 object-cover";
+
+            const artworkTitle = document.createElement("p");
+            artworkTitle.innerText = artwork.title;
+
+            artworkElement.appendChild(artworkImage);
+            artworkElement.appendChild(artworkTitle);
+
+            purchaseDetails
+              .querySelector("#artworks")
+              .appendChild(artworkElement);
+          });
+
+          purchaseDetails.classList.remove("hidden");
+        } else if (data.status === "error") {
+          packageSelectedInfo.classList.remove("hidden");
+
+          confirmPaymentButton.innerText = previousText;
+          confirmPaymentButton.disabled = false;
+
+          const purchaseError = document.getElementById("purchase-error");
+          purchaseError.classList.remove("hidden");
+
+          purchaseError.innerText = data.message;
+        }
       }
     } catch (error) {
       confirmPaymentButton.innerText = previousText;
@@ -106,10 +147,16 @@ const toggleModal = () => {
   const purchaseDetails = document.getElementById("purchase-details");
   const purchaseError = document.getElementById("purchase-error");
   const artworks = document.getElementById("artworks");
+  const cardErrors = document.getElementById("card-errors");
+
+  // Reset card errors
+  cardErrors.classList.add("hidden");
+  stripe.error = null;
 
   // Reset buttons
   confirmPaymentButton.innerText = "Buy for";
   confirmPaymentButton.disabled = false;
+  confirmPaymentButton.classList.remove("hidden");
 
   // Remove loader
   document.getElementById("loader").classList.add("hidden");

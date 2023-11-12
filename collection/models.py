@@ -67,6 +67,7 @@ class PackageOrder(models.Model):
     package = models.ForeignKey(ArtworksPackage, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     artworks = models.ManyToManyField(Artwork)
+    payment_intent = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.package.name}"

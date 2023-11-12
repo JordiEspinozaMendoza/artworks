@@ -70,3 +70,11 @@ class PackageOrder(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.package.name}"
+
+
+class Favorites(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    artwork = models.ForeignKey(Artwork, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.artwork.title}"

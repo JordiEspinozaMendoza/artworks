@@ -1,22 +1,22 @@
 {% extends "collection/base.html" %}{% load static %} {% block content %}
-<div class="container mx-auto px-4">
-  <div class="flex flex-wrap -mx-4">
-    {% for artwork in artworks %}
-    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
-      <div class="bg-white rounded shadow-lg">
-        <a href="{% url 'artwork' artwork.id %}">
-          <img
-            src="{{ artwork.image_url }}"
-            alt="{{ artwork.title }}"
-            class="object-cover h-64 w-full"
-          />
-        </a>
-        <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2">{{ artwork.title }}</div>
+  <div class="container mx-auto px-4">
+    <div class="flex flex-wrap -mx-4">
+      {% for artwork in artworks %}
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
+          <div class="bg-white rounded shadow-lg">
+            <a href="{% url 'artwork' artwork.id %}">
+              <img
+                src="{{ artwork.image_url }}"
+                alt="{{ artwork.title }}"
+                class="object-cover h-64 w-full"
+              />
+            </a>
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">{{ artwork.title }}</div>
+            </div>
+          </div>
         </div>
-      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
-</div>
 {% endblock content %}

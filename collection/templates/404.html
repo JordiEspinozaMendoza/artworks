@@ -1,24 +1,13 @@
-{% extends "collection/base.html" %}{% load static %} {% block content %}
+{% extends 'collection/base.html' %}
+{% load static %} {% block content %}
+  <div class="container mx-auto px-4">
+    <div class="flex flex-wrap justify-center text-center py-32 flex-col gap-4">
+      <h2 class="text-4xl font-semibold text-white">There was an error with your request. <br /></h2>
 
-<div class="container mx-auto px-4">
-  <div class="flex flex-wrap justify-center text-center py-32 flex-col gap-4">
-    <h2 class="text-4xl font-semibold text-white">
-      There was an error with your request. <br />
-    </h2>
+      <span class="text-2xl text-white">{{ message }}</span>
+      <img src="https://media.tenor.com/_XgpJ0xfp-4AAAAC/writing-kermit.gif" alt="kermit" class="mx-auto" />
 
-    <span class="text-2xl text-white"> {{message}} </span>
-    <img
-      src="https://media.tenor.com/_XgpJ0xfp-4AAAAC/writing-kermit.gif"
-      alt="kermit"
-      class="mx-auto"
-    />
-
-    <a
-      href="{% url 'home' %}"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4 mx-auto"
-      >Go back to home</a
-    >
+      <a href="{% url 'home' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4 mx-auto">Go back to home</a>
+    </div>
   </div>
-
-  {% endblock content%}
-</div>
+{% endblock %}

@@ -1,6 +1,12 @@
 {
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
+    "files.exclude": {
+        "**/.prettierignore": true
     },
-    "python.formatting.provider": "none"
+    "[html]": {
+        "editor.formatOnSave": false
+    },
+    "[django-html]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "junstyle.vscode-django-support"
+    }
 }

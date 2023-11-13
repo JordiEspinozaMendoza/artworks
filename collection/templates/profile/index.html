@@ -1,8 +1,7 @@
 {% extends 'collection/base.html' %}
 {% load static %} {% block content %}
   <div class="container mx-auto px-4">
-    <h1 class="text-4xl font-bold mt-4 text-white">My profile</h1>
-    <h1 class="text-3xl font-bold mt-4 text-white">My artworks ({{ artworks|length }})</h1>
+    <h1 class="text-3xl font-bold mt-4 text-white">My profile | My artworks ({{ artworks|length }})</h1>
 
     <div class="flex flex-wrap -mx-4">
       {% for artwork, quantity in artworks.items %}

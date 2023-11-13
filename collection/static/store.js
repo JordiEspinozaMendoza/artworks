@@ -186,3 +186,8 @@ const toggleModal = () => {
   // Hide modal
   modal.classList.add("hidden");
 };
+
+const toggleModalNotLoggedIn = () => {
+  const modal = document.getElementById("modal");
+  modal.classList.toggle("hidden");
+};

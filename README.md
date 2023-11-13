@@ -2,8 +2,10 @@
 
 ## Integrantes
 
-- Luis Alejandro Fierro Jacobo
-- Jordi Espinoza Mendoza
+- Luis Alejandro Fierro Jacobo 19211637
+- Jordi Espinoza Mendoza 19211633
+
+[Video del proyecto](https://www.loom.com/share/21bdaa33358748f39943d110db09fdeb?sid=5ff186d1-a9ea-4b2d-9187-a6ffeaff59b5)
 
 ## Descripción
 

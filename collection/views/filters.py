@@ -1,24 +1,21 @@
 from collection.models import Artwork
-from django_filters_facet import Facet, FacetedFilterSet
-import django_filters
 from django.contrib.postgres import search
 
 
-class ArtworkFilterSet(FacetedFilterSet):
-    search = django_filters.CharFilter(method="filter_search", label="Search")
+def ft_artworks(value):
+    vector = (
+        search.SearchVector("title", weight="A")
+        + search.SearchVector("author__name", weight="B")
+        + search.SearchVector("style__name", weight="C")
+        + search.SearchVector("genre__name", weight="C")
+    )
+    query = search.SearchQuery(value, search_type="websearch")
 
-    class Meta:
-        model = Artwork
-        fields = ["author__name", "genre__name", "title"]
-
-    def configure_facets(self):
-        self.filters["author__name"].facet = Facet()
-        self.filters["genre__name"].facet = Facet()
-        self.filters["title"].facet = Facet()
-
-    def filter_search(self, queryset, name, value):
-        vector = search.SearchVector("title", "author__name", "genre__name")
-
-        query = search.SearchQuery(value, search_type="phrase")
-
-        return queryset.annotate(search=vector).filter(search=query)
+    return (
+        Artwork.objects.annotate(
+            search=vector,
+            rank=search.SearchRank(vector, query),
+        )
+        .filter(search=query)
+        .order_by("-rank")
+    )
